@@ -25,7 +25,11 @@ class XML_preprocessor(object):
     def _preprocess_XML(self):
         filenames = os.listdir(self.path_prefix)
         for filename in filenames:
-            tree = ElementTree.parse(self.path_prefix + filename)
+            try:
+                tree = ElementTree.parse(self.path_prefix + filename)
+            except Exception as e:
+                print('skip:', filename)
+
             root = tree.getroot()
             bounding_boxes = []
             one_hot_classes = []
